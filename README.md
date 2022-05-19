@@ -9,6 +9,13 @@ The provided code is functional, but it's got some issues that need to be resolv
 Improve the code how you see fit - please leave comments to justify your decisions.
 
 # GitHub Pull Requests
-This is an interview task sent to prospective candidates to work at Aluminati. As such, all pull requests will be rejected. This code is, by its very nature, purposely designed with issues that candiates are asked to review!
+This is an interview task sent to prospective candidates to work at Aluminati. As such, all pull requests will be rejected. This code is, by its very nature, purposely designed with issues that candidates are asked to review!
 
 If you have been invited to perform this test your submission should be through your point of contact with us, e.g. your recruitment agency.
+
+# Getting Setup
+First you will need to install the dependencies with either `npm i` or `yarn`
+
+To start you dev server run `npm start` or `yarn start`
+
+The app should start running at: http://localhost:8080
