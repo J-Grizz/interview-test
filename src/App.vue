@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <input type="number" v-model="limit" />
-    <Numbers/>
+    <input type="number" v-model="limit" max="1000"/>
+    <Numbers :limit="limit"/>
   </div>
 </template>
 

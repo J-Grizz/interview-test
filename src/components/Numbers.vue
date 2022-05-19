@@ -1,53 +1,54 @@
 <template>
   <div>
-    <div class="number" :id="'number-'+number" v-for="number in n()" :key="number" @mouseover="hov(number)" @mouseout="reset">
-      {{number}}
+    <!-- Using the num as key seems like bad practice, id rather use something like vue-uuid for key gen -->
+    <div class="num" ref="nums" :id="'num-'+num" v-for="num in gen_nums()" :key="'num-'+num" @mouseover="hov(num)" @mouseout="reset">
+      <span>{{num}}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  // Added name of component
+  name: 'Numbers',
+  // Use props over the atrocity of $this.parent
+  props: ['limit'],
   data()
   {
     return {
-      limit: this.$parent.limit,
-      numbers: []
-    }
-  },
-  watch: {
-    ['$parent.limit'](newLimit)
-    {
-      this.limit = newLimit;
+      nums: []
     }
   },
   methods: {
-    n()
+    // Function n is badly named
+    gen_nums()
     {
-      let numbers = [];
+      let nums = [];
       for(var i = 0; i < this.limit; i++)
       {
-        numbers = [...numbers, i];
+        // .push is more performant than using spread operator, O(1) vs O(N)
+        nums.push(i);
       }
-      return numbers.sort(() => Math.random() - 0.5);
+      return nums.sort(() => Math.random() - 0.5);
     },
-    hov(number)
-    {
-      const nums = document.querySelectorAll('.number');
 
-      for(let i = 0; i < nums.length; i++)
-      {
-        const num = nums[i].textContent.trim();
-        if(number % num === 0)
-        {
-          nums[i].classList.add('active')
-          console.log('divisor', num)
+
+    hov(hovNum)
+    {
+      // Better practice to use refs over query selector
+      const nums = this.$refs.nums;
+      // Cleaned this guy up a bit
+      nums.forEach(num => {
+        if(hovNum % num.textContent.trim() === 0) {
+          num.classList.add('active');
         }
-      }
+      });
     },
+
     reset()
     {
-      const nums = document.querySelectorAll('.number');
+      // Better practice to use refs over query selector
+      const nums = this.$refs.nums;
       nums.forEach(num => num.classList.remove('active'))
     }
   }
@@ -55,7 +56,7 @@ export default {
 </script>
 
 <style scoped>
-	.number {
+	.num {
 		display: inline-block;
 		padding: 5px;
 		background-color: lightgrey;
