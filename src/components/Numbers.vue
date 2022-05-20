@@ -13,12 +13,6 @@ export default {
   name: 'Numbers',
   // Use props over the atrocity of $this.parent
   props: ['limit'],
-  data()
-  {
-    return {
-      nums: []
-    }
-  },
   methods: {
     // Function n is badly named
     gen_nums()
